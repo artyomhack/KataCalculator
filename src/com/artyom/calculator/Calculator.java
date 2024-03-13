@@ -23,7 +23,7 @@ class Calculator {
         String[] values = postfixNotation.getPostfixLine().split(" ");
 
         for (String value : values) {
-            if (value.isEmpty() || value.isBlank())
+            if (value.isBlank())
                 continue;
 
             if (value.matches(romanPattern)) {

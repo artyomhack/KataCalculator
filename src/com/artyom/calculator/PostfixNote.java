@@ -68,10 +68,16 @@ class PostfixNote {
         String[] values = infixLine.split(" ");
 
         for (String value : values) {
+            if (value.isBlank())
+                continue;
+
             if (value.matches(CalculatorUtils.digitPattern))
                 digitNums.add(value);
-            if (value.matches(CalculatorUtils.romanPattern))
+            else if (value.matches(CalculatorUtils.romanPattern))
                 romanNums.add(value);
+            else if (!value.matches(CalculatorUtils.operationPattern)) {
+                throw new RuntimeException("Используйте следующий ряд операций(+, -, /, *), данная операция " + value + " недоступна.");
+            }
         }
 
         if (!digitNums.isEmpty() && !romanNums.isEmpty())
