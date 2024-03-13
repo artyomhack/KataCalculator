@@ -81,7 +81,7 @@ class PostfixNote {
         if (!digitNums.isEmpty() && !romanNums.isEmpty())
             throw new RuntimeException("используются одновременно разные системы счисления");
 
-        if (digitNums.size() > 3 || romanNums.size() > 3)
+        if (digitNums.size() > 2 || romanNums.size() > 2)
             throw new RuntimeException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         if (!romanNums.isEmpty()) {
