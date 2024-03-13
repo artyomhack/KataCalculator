@@ -1,6 +1,7 @@
 package com.artyom.calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -24,14 +25,11 @@ class PostfixNote {
         StringBuilder output = new StringBuilder();
 
         for (String value : values) {
-            if (value.matches(CalculatorUtils.digitPattern))
+            if (value.matches(PatternUtil.digitPattern))
                 output.append(value);
-
-            else if (value.matches(CalculatorUtils.romanPattern))
+            else if (value.matches(PatternUtil.romanPattern))
                 output.append(value);
-
-
-            else if (value.matches(CalculatorUtils.operationPattern))
+            else if (value.matches(PatternUtil.operationPattern))
                 refreshOperationsStack(operations, value, output);
             output.append(" ");
         }
@@ -71,19 +69,19 @@ class PostfixNote {
             if (value.isBlank())
                 continue;
 
-            if (value.matches(CalculatorUtils.digitPattern))
+            if (value.matches(PatternUtil.digitPattern))
                 digitNums.add(value);
-            else if (value.matches(CalculatorUtils.romanPattern))
+            else if (value.matches(PatternUtil.romanPattern))
                 romanNums.add(value);
-            else if (!value.matches(CalculatorUtils.operationPattern)) {
-                throw new RuntimeException("Используйте следующий ряд операций(+, -, /, *), данная операция " + value + " недоступна.");
+            else if (!value.matches(PatternUtil.operationPattern)) {
+                throw new RuntimeException("Используйте следующий ряд операций(+, -, /, *) и ваше число должно быть от 0-10 или I-X");
             }
         }
 
         if (!digitNums.isEmpty() && !romanNums.isEmpty())
             throw new RuntimeException("используются одновременно разные системы счисления");
 
-        if (digitNums.size() > 2 || romanNums.size() > 2)
+        if (digitNums.size() > 3 || romanNums.size() > 3)
             throw new RuntimeException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         if (!romanNums.isEmpty()) {

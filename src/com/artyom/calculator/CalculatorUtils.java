@@ -4,9 +4,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CalculatorUtils {
-    public static final String romanPattern = Pattern.compile("^(X|IX|V?I{0,3})").pattern();
-    public static final String digitPattern = Pattern.compile("[0-9]").pattern();
-    public static final String operationPattern = Pattern.compile("[+\\-*/]").pattern();
     public static final TreeMap<Integer, String> romanDictionary = new TreeMap<>() {
         {
             put(1, "I");

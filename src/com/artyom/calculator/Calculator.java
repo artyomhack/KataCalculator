@@ -20,22 +20,23 @@ class Calculator {
         Stack<Integer> stackOfNumbs = new Stack<>();
 
         PostfixNote postfixNotation = new PostfixNote(input);
+
         String[] values = postfixNotation.getPostfixLine().split(" ");
 
         for (String value : values) {
             if (value.isBlank())
                 continue;
 
-            if (value.matches(romanPattern)) {
-                isRoman = true;
-                stackOfNumbs.push(toDigit(value));
-            }
-            else if (value.matches(digitPattern)) {
+            if (value.matches(PatternUtil.digitPattern)) {
                 int digit = Integer.parseInt(value);
                 stackOfNumbs.push(digit);
             }
-            else if (value.matches(operationPattern)) {
-                calculate(stackOfNumbs, value);
+            else if (value.matches(PatternUtil.romanPattern)) {
+                isRoman = true;
+                stackOfNumbs.push(toDigit(value));
+            }
+            else if (value.matches(PatternUtil.operationPattern)) {
+                calculateOperation(stackOfNumbs, value);
             }
         }
 
@@ -47,7 +48,7 @@ class Calculator {
         return String.valueOf(stackOfNumbs.pop());
     }
 
-    private void calculate(Stack<Integer> stackOfNumbs, String operationFromStack) {
+    private void calculateOperation(Stack<Integer> stackOfNumbs, String operationFromStack) {
         int result = 0;
         if (stackOfNumbs.size() > 1) {
             int b = stackOfNumbs.pop();
