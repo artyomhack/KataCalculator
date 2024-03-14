@@ -1,5 +1,7 @@
 package com.artyom.calculator;
 
+import java.util.Scanner;
+
 public class Main {
     public static String calc(String input) {
         Calculator calculator = new Calculator(input);
@@ -7,11 +9,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println(calc("1 + 2"));
-        System.out.println(calc("VI / III"));
-//        System.out.println(calc("I - II"));
-//        System.out.println(calc("I + 1"));
-//        System.out.println(calc("1 + 2 + 3"));
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        System.out.println(calc(input));
     }
 }
 

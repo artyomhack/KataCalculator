@@ -5,7 +5,8 @@ import java.util.Stack;
 import static com.artyom.calculator.CalculatorUtils.*;
 
 class Calculator {
-    private String value;
+    private final Stack<Integer> stackOfNumbs = new Stack<>();
+    private final String value;
 
     public Calculator(String input) {
         value = calculation(input);
@@ -15,9 +16,12 @@ class Calculator {
         return value;
     }
 
+    public Stack<Integer> getStackOfNumbs() {
+        return stackOfNumbs;
+    }
+
     private String calculation(String input) {
         boolean isRoman = false;
-        Stack<Integer> stackOfNumbs = new Stack<>();
 
         PostfixNote postfixNotation = new PostfixNote(input);
 
@@ -36,7 +40,7 @@ class Calculator {
                 stackOfNumbs.push(toDigit(value));
             }
             else if (value.matches(PatternUtil.operationPattern)) {
-                calculateOperation(stackOfNumbs, value);
+                doOperation(value);
             }
         }
 
@@ -48,7 +52,7 @@ class Calculator {
         return String.valueOf(stackOfNumbs.pop());
     }
 
-    private void calculateOperation(Stack<Integer> stackOfNumbs, String operationFromStack) {
+    private void doOperation(String operationFromStack) {
         int result = 0;
         if (stackOfNumbs.size() > 1) {
             int b = stackOfNumbs.pop();
