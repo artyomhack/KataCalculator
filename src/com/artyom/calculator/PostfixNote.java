@@ -64,6 +64,7 @@ class PostfixNote {
         List<String> digitNums = new ArrayList<>();
         List<String> romanNums = new ArrayList<>();
         String[] values = infixLine.split(" ");
+        String operation = null;
 
         for (String value : values) {
             if (value.isBlank())
@@ -73,7 +74,9 @@ class PostfixNote {
                 digitNums.add(value);
             else if (value.matches(PatternUtil.romanPattern))
                 romanNums.add(value);
-            else if (!value.matches(PatternUtil.operationPattern)) {
+            else if (value.matches(PatternUtil.operationPattern))
+                operation = value;
+            else  {
                 throw new RuntimeException("Используйте следующий ряд операций(+, -, /, *) и ваше число должно быть от 0-10 или I-X");
             }
         }
@@ -85,7 +88,7 @@ class PostfixNote {
             throw new RuntimeException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         if (!romanNums.isEmpty()) {
-            if (CalculatorUtils.toDigit(romanNums.get(0)) < CalculatorUtils.toDigit(romanNums.get(1)))
+            if (CalculatorUtils.toDigit(romanNums.get(0)) < CalculatorUtils.toDigit(romanNums.get(1)) && operation.equals("-"))
                 throw new RuntimeException("в римской системе нет отрицательных чисел");
         }
 
